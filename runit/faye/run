@@ -1,0 +1,7 @@
+#!/bin/bash
+exec 2>&1
+
+BIN_PATH=/home/myuser/applications/myapp/sv/faye/bin
+APP_PATH=/home/myuser/applications/myapp
+
+cd $APP_PATH/current && FAYE_PORT=9494 $BIN_PATH faye.ru -s thin -E staging
