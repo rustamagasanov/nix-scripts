@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+HOME=/home/myuser
+BIN_PATH=$HOME/application/current/bin/unicorn_rails
+RVM_ENV=$HOME/.rvm/environments/ruby-1.9.3-p448@mygemset
+
+if [[ -s $RVM_ENV ]]
+then
+  source $RVM_ENV
+  exec $BIN_PATH "$@"
+else
+  echo "ERROR: Missing RVM environment file: '$RVM_ENV'" >&2
+  exit 1
+fi
