@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+BIN_PATH=/home/myuser/applications/myapp/current/bin/rake
+RVM_ENV=/home/myuser/.rvm/environments/ruby-1.9.3-p286@mygemset
+PIDFILE=/home/myuser/applications/myapp/shared/pids/resque-scheduler.pid
+
+if [[ -s $RVM_ENV ]]
+then
+  source $RVM_ENV
+  exec $BIN_PATH --rakefile /home/myuser/applications/myapp/current/Rakefile resque:scheduler PIDFILE=$PIDFILE QUEUE=* "$@"
+else
+  echo "ERROR: Missing RVM environment file: '$RVM_ENV'" >&2
+  exit 1
+fi
