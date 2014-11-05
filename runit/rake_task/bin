@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+UHOME=/home/myuser
+BIN_PATH=$UHOME/application/current/bin/rake
+RVM_ENV=$UHOME/.rvm/environments/ruby-1.9.3-p448@mygemset
+
+if [[ -s $RVM_ENV ]]
+then
+  source $RVM_ENV
+  cd $UHOME/application/current && bundle exec $BIN_PATH rake_task "$@"
+else
+  echo "ERROR: Missing RVM environment file: '$RVM_ENV'" >&2
+  exit 1
+fi

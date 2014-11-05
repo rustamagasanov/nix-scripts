@@ -1,0 +1,6 @@
+#!/bin/bash
+exec 2>&1
+
+BIN_PATH=/home/myuser/application/sv/rake_task/bin
+
+exec $BIN_PATH RAILS_ENV=staging
