@@ -1,0 +1,4 @@
+#!/bin/bash
+exec 2>&1
+HOME=/home/myuser
+exec redis-server $HOME/applications/myapp/shared/config/redis.conf
