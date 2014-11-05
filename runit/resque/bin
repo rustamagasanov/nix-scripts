@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+UHOME=/home/myuser
+BIN_PATH=$UHOME/applications/myapp/current/bin/rake
+RVM_ENV=$UHOME/.rvm/environments/ruby-1.9.3-p286@mygemset
+
+if [[ -s $RVM_ENV ]]
+then
+  source $RVM_ENV
+  exec $BIN_PATH -f $UHOME/applications/myapp/current/Rakefile resque:work PIDFILE=$UHOME/applications/myapp/shared/pids/resque.pid QUEUE=* "$@"
+else
+  echo "ERROR: Missing RVM environment file: '$RVM_ENV'" >&2
+  exit 1
+fi
+
