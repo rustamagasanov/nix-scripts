@@ -1,6 +1,16 @@
 #!/bin/bash
 exec 2>&1
 
-BIN_PATH=/home/myuser/application/sv/rake_task/bin
+UHOME=/home/myuser
+BIN_PATH=$UHOME/application/current/bin/rake
+RVM_ENV=$UHOME/.rvm/environments/ruby-1.9.3-p448@mygemset
 
-exec $BIN_PATH RAILS_ENV=staging
+if [[ -s $RVM_ENV ]]
+then
+  source $RVM_ENV
+  cd $UHOME/application/current
+  exec $BIN_PATH rake_task "$@" RAILS_ENV=staging
+else
+  echo "ERROR: Missing RVM environment file: '$RVM_ENV'" >&2
+  exit 1
+fi
